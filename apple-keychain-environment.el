@@ -22,7 +22,8 @@
 (setq-default ssh-path "$HOME/.ssh/id_ed25519")
 
 (defun apple-keychain-environment-refresh ()
-  "Set ssh-agent environment variables using Apple Keychain"
+  "Set ssh-agent environment variables using Apple Keychain."
+  (interactive)
   (let ((ssh (shell-command-to-string "ssh-agent -s")))
     (list (and ssh
                (string-match "SSH_AUTH_SOCK[=\s]\\([^\s;\n]*\\)" ssh)
