@@ -31,7 +31,9 @@
           (and ssh
                (string-match "SSH_AGENT_PID[=\s]\\([0-9]*\\)?" ssh)
                (setenv       "SSH_AGENT_PID" (match-string 1 ssh)))))
-  (shell-command-to-string (format "ssh-add --apple-use-keychain %s" ssh-path)))
+  (if (> (shell-command (format "ssh-add --apple-use-keychain %s" ssh-path)) 0)
+      (error (format "Error running ssh-add with file %s!" ssh-path))
+    (print "Successfully ran ssh-add")))
 
 (provide 'apple-keychain-environment)
 ;;; apple-keychain-environment.el ends here
